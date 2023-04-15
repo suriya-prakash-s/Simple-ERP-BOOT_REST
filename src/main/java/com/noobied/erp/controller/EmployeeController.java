@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 //@RestController=>@Controller+@ResponseBody
 //Eliminates the use @ResponseBody on every call
 @RestController()
@@ -16,9 +18,15 @@ public class EmployeeController {
     //Autowiring the DI for EmployeeService
     @Autowired
     private EmployeeService employeeService;
+    //Save Employee API
     @PostMapping("/saveEmployee")
     public ResponseEntity<Employee> saveEmployeeDetails(@RequestBody Employee employee){
         return new ResponseEntity<Employee>(employeeService.saveEmployee(employee), HttpStatus.CREATED);
+    }
+    //Get all employee API
+    @GetMapping("/getAllEmployees")
+    public ResponseEntity<List<Employee>> getAllEmployeeDetails(){
+        return new ResponseEntity<List<Employee>>(employeeService.getAllEmployees(),HttpStatus.OK);
     }
 
 
