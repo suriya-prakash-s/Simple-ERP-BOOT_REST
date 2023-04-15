@@ -2,6 +2,7 @@ package com.noobied.erp.controller;
 
 import ch.qos.logback.core.model.conditional.ElseModel;
 import com.noobied.erp.entity.Employee;
+import com.noobied.erp.exception.ResourceNotFoundException;
 import com.noobied.erp.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,13 +21,19 @@ public class EmployeeController {
     private EmployeeService employeeService;
     //Save Employee API
     @PostMapping("/saveEmployee")
-    public ResponseEntity<Employee> saveEmployeeDetails(@RequestBody Employee employee){
+    public ResponseEntity<Employee> saveEmployeeDetails(@RequestBody Employee employee) {
         return new ResponseEntity<Employee>(employeeService.saveEmployee(employee), HttpStatus.CREATED);
     }
     //Get all employee API
     @GetMapping("/getAllEmployees")
-    public ResponseEntity<List<Employee>> getAllEmployeeDetails(){
+    public ResponseEntity<List<Employee>> getAllEmployeeDetails() {
         return new ResponseEntity<List<Employee>>(employeeService.getAllEmployees(),HttpStatus.OK);
+    }
+
+    //Get Employee by id API
+    @GetMapping("/getEmployeeById/{id}")
+    public ResponseEntity<Employee> getEmployeeDetailsById(@PathVariable("id") long id) {
+            return new ResponseEntity<Employee>(employeeService.getEmployeeById(id),HttpStatus.OK);
     }
 
 
