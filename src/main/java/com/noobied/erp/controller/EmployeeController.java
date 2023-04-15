@@ -36,5 +36,21 @@ public class EmployeeController {
             return new ResponseEntity<Employee>(employeeService.getEmployeeById(id),HttpStatus.OK);
     }
 
+    //Update employee by id
+    @PutMapping("/updateEmployee/{id}")
+    public ResponseEntity<Employee> updateEmployeeDetailsById(@RequestBody Employee employee,
+                                                              @PathVariable("id") long id) {
+        return new ResponseEntity<>(employeeService.updateEmployeeById(employee,id),HttpStatus.OK);
+    }
 
+    //delete employee by id
+    @DeleteMapping("deleteEmployeeById/{id}")
+    public ResponseEntity<String> deleteEmployeeById(@PathVariable("id") long id) {
+        try {
+            employeeService.deleteEmployeeById(id);
+            return new ResponseEntity<>("Deleted Successfully",HttpStatus.OK);
+        } catch (ResourceNotFoundException exception) {
+            return new ResponseEntity<>("Employee not found",HttpStatus.NOT_FOUND);
+        }
+    }
 }
