@@ -19,4 +19,6 @@ public interface EmployeeService {
 
     //delete employee by id
     void deleteEmployeeById(long id);
+
+    Employee getEmployeeByEmail(String email);
 }

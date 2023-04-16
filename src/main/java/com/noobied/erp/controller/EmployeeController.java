@@ -53,4 +53,14 @@ public class EmployeeController {
             return new ResponseEntity<>("Employee not found",HttpStatus.NOT_FOUND);
         }
     }
+
+    //get employee by email
+    @GetMapping("/getEmployeeByEmail")
+    public ResponseEntity<Employee> getEmployeeDetailsByEmail(@RequestParam(name = "email") String email){
+        try {
+            return new ResponseEntity<>(employeeService.getEmployeeByEmail(email),HttpStatus.OK);
+        }catch (ResourceNotFoundException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }
